@@ -191,6 +191,7 @@
  
      <script>
          // Sync sliders with inputs
+        // Sync sliders with inputs
          const ageInput = document.getElementById("age");
          const ageSlider = document.getElementById("ageSlider");
          const ageMinus = document.getElementById("ageMinus");
@@ -200,13 +201,15 @@
          ageSlider.addEventListener("input", () => ageInput.value = ageSlider.value);
          ageMinus.addEventListener("click", () => {
              ageSlider.value = Math.max(+ageSlider.value - 1, +ageSlider.min);
+             ageSlider.dispatchEvent(new Event("input"));
              ageInput.value = ageSlider.value;
              UpdateAll();
          });
          agePlus.addEventListener("click", () => {
              ageSlider.value = Math.min(+ageSlider.value + 1, +ageSlider.max);
+             ageSlider.dispatchEvent(new Event("input"));
              ageInput.value = ageSlider.value;
-             UpdateAll();
+             UpdateALL();
          });
  
          const chinupsInput = document.getElementById("chinups");
@@ -218,13 +221,15 @@
          chinupsSlider.addEventListener("input", () => chinupsInput.value = chinupsSlider.value);
          chinupsMinus.addEventListener("click", () => {
              chinupsSlider.value = Math.max(+chinupsSlider.value - 1, +chinupsSlider.min);
+             chinupsSlider.dispatchEvent(new Event("input"));
              chinupsInput.value = chinupsSlider.value;
-             UpdateAll();
+             UpdateALL();
          });
          chinupsPlus.addEventListener("click", () => {
              chinupsSlider.value = Math.min(+chinupsSlider.value + 1, +chinupsSlider.max);
+             chinupsSlider.dispatchEvent(new Event("input"));
              chinupsInput.value = chinupsSlider.value;
-             UpdateAll();
+             UpdateALL();
          });
  
          const situpsInput = document.getElementById("situps");
@@ -236,11 +241,13 @@
          situpsSlider.addEventListener("input", () => situpsInput.value = situpsSlider.value);
          situpsMinus.addEventListener("click", () => {
              situpsSlider.value = Math.max(+situpsSlider.value - 1, +situpsSlider.min);
+             situpsSlider.dispatchEvent(new Event("input"));
              situpsInput.value = situpsSlider.value;
-             UpdateAll();
+             UpdateALL();
          });
          situpsPlus.addEventListener("click", () => {
              situpsSlider.value = Math.min(+situpsSlider.value + 1, +situpsSlider.max);
+             situpsSlider.dispatchEvent(new Event("input"));
              situpsInput.value = situpsSlider.value;
              UpdateAll();
          });
@@ -253,28 +260,21 @@
          runtimeInput.addEventListener("input", () => {
              const [min, sec] = runtimeInput.value.split(".").map(Number);
              runtimeSlider.value = min * 60 + (sec || 0);
-             UpdateAll();
          });
  
          runtimeSlider.addEventListener("input", () => {
              const minutes = Math.floor(runtimeSlider.value / 60);
              const seconds = String(runtimeSlider.value % 60).padStart(2, "0");
              runtimeInput.value = `${minutes}.${seconds}`;
-             UpdateAll();
          });
  
          runtimeMinus.addEventListener("click", () => {
              runtimeSlider.value = Math.max(+runtimeSlider.value - 1, +runtimeSlider.min);
              runtimeSlider.dispatchEvent(new Event("input"));
-             UpdateAll();
+             runtimeInput.value = runtimeSlider.value;
+             UpdateALL();
          });
- 
-         runtimePlus.addEventListener("click", () => {
-             runtimeSlider.value = Math.min(+runtimeSlider.value + 1, +runtimeSlider.max);
-             runtimeSlider.dispatchEvent(new Event("input"));
-             UpdateAll();
-         });
- 
+      
          // Function to show suggested run time
          function showSuggestedRunTime(age, chinups, situps) {
              const display = document.getElementById("suggestedRunTimeDisplay");
