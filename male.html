@@ -271,7 +271,11 @@
          runtimeMinus.addEventListener("click", () => {
              runtimeSlider.value = Math.max(+runtimeSlider.value - 1, +runtimeSlider.min);
              runtimeSlider.dispatchEvent(new Event("input"));
-             runtimeInput.value = runtimeSlider.value;
+             UpdateALL();
+         });
+      runtimePlus.addEventListener("click", () => {
+             runtimeSlider.value = Math.min(+runtimeSlider.value + 1, +runtimeSlider.max);
+             runtimeSlider.dispatchEvent(new Event("input"));
              UpdateALL();
          });
       
